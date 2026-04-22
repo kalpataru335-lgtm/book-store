@@ -4,6 +4,55 @@
 <title>Order Summary</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+
+<style>
+.bill {
+  text-align:left;
+  background:#020617;
+  padding:15px;
+  border-radius:10px;
+}
+
+.row {
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+  font-size:14px;
+}
+
+.name {
+  width:70%;
+}
+
+.price {
+  width:30%;
+  text-align:right;
+}
+
+.total-box {
+  margin-top:15px;
+  padding-top:10px;
+  border-top:1px solid #555;
+}
+
+.final {
+  color:#22c55e;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.strike {
+  text-decoration:line-through;
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.save {
+  color:#22c55e;
+  font-size:12px;
+}
+</style>
+
 </head>
 <body>
 
@@ -11,56 +60,120 @@
 
 <h2>🧾 Order Summary</h2>
 
-<div id="list"></div>
-
-<h3 id="total"></h3>
+<div class="bill" id="bill"></div>
 
 <button onclick="go()">Proceed to Payment</button>
 
 </div>
 
 <script>
-const cart = JSON.parse(localStorage.getItem("cart"));
-const bundle = localStorage.getItem("bundle") === "true";
-const ship = parseInt(localStorage.getItem("ship")) || 0;
 
 // DATA
+const names = [
+"Lilamrit (7 Vol)",
+"Hare Krishna Explosion",
+"Navadvipa Mahatmya",
+"Messenger",
+"Queen Kunti",
+"Divine Instructions",
+"Japa",
+"Lord Caitanya",
+"Path of Perfection",
+"Message of Godhead",
+"Matchless Gift",
+"Prahlada Maharaja",
+"Modern Times",
+"Beyond Birth",
+"Life Comes From Life",
+"Easy Journey",
+"Civilization",
+"Nectar of Instruction",
+"HK Challenge",
+"Raja Vidya",
+"Consciousness",
+"Laws of Nature"
+];
+
 const actual = [1500,350,150,150,100,100,150,100,55,25,50,50,50,30,80,50,50,50,50,50,50,80];
 const price  = [360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
 
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const ship = parseInt(localStorage.getItem("ship")) || 0;
+
+// CALC
 let total = 0;
 let actualTotal = 0;
 let text = "";
 
-// CALCULATE
+// build bill rows
+let html = "";
+
 cart.forEach(i=>{
   total += price[i];
   actualTotal += actual[i];
-  text += `Item ${i+1} - ₹${price[i]}\n`;
+
+  html += `
+  <div class="row">
+    <div class="name">${names[i]}</div>
+    <div class="price">₹${price[i]}</div>
+  </div>
+  `;
+
+  text += `${names[i]} - ₹${price[i]}\n`;
 });
 
-// APPLY BUNDLE
-let discount = bundle ? 100 : 0;
-let finalBookPrice = total - discount;
+// ✅ BUNDLE ONLY IF ALL BOOKS SELECTED
+let discount = 0;
+if(cart.length === names.length){
+  discount = 100;
+}
 
-// FINAL
+let finalBookPrice = total - discount;
 let final = finalBookPrice + ship;
 let savings = actualTotal - finalBookPrice;
 
-// DISPLAY
-document.getElementById("list").innerText = text;
+// TOTAL SECTION
+html += `
+<div class="total-box">
 
-document.getElementById("total").innerHTML = `
-Total MRP: ₹${actualTotal}<br>
-Your Price: ₹${total}<br>
-Bundle Discount: -₹${discount}<br>
-Final Book Price: ₹${finalBookPrice}<br>
-Shipping: ₹${ship}<br>
-<b>Final Payable: ₹${final}</b><br>
-<span style="color:#22c55e;">You Save: ₹${savings}</span>
+<div class="row">
+  <div>Books Total</div>
+  <div class="price">₹${finalBookPrice}</div>
+</div>
+
+<div class="row">
+  <div></div>
+  <div class="price strike">₹${actualTotal}</div>
+</div>
+
+${discount > 0 ? `
+<div class="row">
+  <div>Bundle Discount</div>
+  <div class="price">-₹${discount}</div>
+</div>
+` : ""}
+
+<div class="row">
+  <div>Shipping</div>
+  <div class="price">+₹${ship}</div>
+</div>
+
+<div class="row final">
+  <div>Final Payable</div>
+  <div class="price">₹${final}</div>
+</div>
+
+<div class="row save">
+  <div>You Save</div>
+  <div class="price">₹${savings}</div>
+</div>
+
+</div>
 `;
 
-// GOOGLE FORM REDIRECT
+document.getElementById("bill").innerHTML = html;
+
+// GOOGLE FORM
 function go(){
 const url = `https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url
 &entry.814413456=${encodeURIComponent(localStorage.getItem("name"))}
@@ -72,6 +185,7 @@ const url = `https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssx
 
 window.location = url;
 }
+
 </script>
 
 </body>
