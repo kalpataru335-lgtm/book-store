@@ -1,51 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Loot SP Books at 70% Off</title>
+const books = [
+  { name: "Srila Prabhupada lilamrit (7 Volumes)", actual: 1500, price: 750, special: true },
+  { name: "The Hare Krishna Explosion", actual: 350, price: 105 },
+  { name: "Sri Navadvipa-dhama Mahatmya", actual: 150, price: 45 },
+  { name: "Prabhupada: Messenger of the Supreme Lord", actual: 150, price: 45 },
+  { name: "Teachings of Queen Kunti", actual: 100, price: 30 },
+  { name: "Divine Instructions", actual: 100, price: 30 },
+  { name: "Japa", actual: 150, price: 45 },
+  { name: "Teachings of Lord Caitanya", actual: 100, price: 30 },
+  { name: "The Path of Perfection", actual: 55, price: 17 },
+  { name: "Message of Godhead", actual: 25, price: 10 },
+  { name: "Matchless Gift", actual: 50, price: 15 },
+  { name: "Transcendental Teachings of Prahlada Maharaja", actual: 50, price: 15 },
+  { name: "Modern Times in Vedic Perspective", actual: 50, price: 15 },
+  { name: "Beyond Birth and Death", actual: 30, price: 10 },
+  { name: "Life Comes From Life", actual: 80, price: 24 },
+  { name: "Easy Journey to Other Planets", actual: 50, price: 15 },
+  { name: "Civilization and Transcendence", actual: 50, price: 15 },
+  { name: "The Nectar of Instruction", actual: 50, price: 15 },
+  { name: "The Hare Krishna Challenge", actual: 50, price: 15 },
+  { name: "Raja Vidya: King of Knowledge", actual: 50, price: 15 },
+  { name: "Consciousness: The Missing Link", actual: 50, price: 15 },
+  { name: "The Laws of Nature", actual: 80, price: 24 }
+];
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+let selected = [];
+const list = document.getElementById("book-list");
 
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+books.forEach((b, i) => {
+  const div = document.createElement("div");
+  div.className = "book";
+  if (b.special) div.classList.add("special");
 
-<div class="container">
+  div.innerHTML = `
+    <h3>${b.name}</h3>
+    ${b.special ? `<div class="special-tag">🔥 50% OFF + 6 volumes sealed out of 7</div>` : ""}
+    <span class="old">₹${b.actual}</span><br>
+    <span class="new">₹${b.price}</span>
+  `;
 
-  <h1 class="title">🔥 Loot SP Books at 70% Off</h1>
+  div.onclick = () => toggle(i, div);
+  list.appendChild(div);
+});
 
-  <p class="desc">
-    Hi i'm sourav want to sell the Prabhupad books that i purchased before but be assured they are in new condition as i barely read them. Srila prabhupad lilamrit set is sealed except 1st vol. I'm not commercial seller just looking for someone interested.<br><br>
+function toggle(i, el) {
+  const idx = selected.indexOf(i);
+  if (idx > -1) {
+    selected.splice(idx, 1);
+    el.classList.remove("selected");
+  } else {
+    selected.push(i);
+    el.classList.add("selected");
+  }
+  update();
+}
 
-    <span class="contact">
-      Contact for any queries: 8826001945
-    </span>
-  </p>
+function update() {
+  let total = 0;
+  selected.forEach(i => total += books[i].price);
 
-  <div class="highlight" onclick="buyAll()">
-    <div class="buy-text">Click to buy them all at</div>
-    <div class="strike">₹1300</div>
-    <div class="main-price">₹1200</div>
-    <div class="save">Save ₹100</div>
-    <div class="note">Only 1 piece of each book available</div>
-    <div class="ship">🚚 Shipping included in price</div>
-  </div>
+  document.getElementById("total").innerText = total;
 
-  <a href="https://drive.google.com/drive/folders/1QtImhvbA8sS7K45tDz7SUojIqrtCZhS7" target="_blank" class="view-btn">
-    📸 View real pics of books
-  </a>
+  if (total < 200) {
+    document.getElementById("msg").innerText =
+      "Minimum ₹200 required to compensate shipping charges";
+    document.getElementById("orderBtn").disabled = true;
+  } else {
+    document.getElementById("msg").innerText = "Ready to order 🚀";
+    document.getElementById("orderBtn").disabled = false;
+  }
+}
 
-  <div id="book-list" class="grid"></div>
+function goToSummary() {
+  localStorage.setItem("cart", JSON.stringify(selected));
+  localStorage.removeItem("bundle");
+  window.location.href = "summary.html";
+}
 
-</div>
-
-<div class="cart">
-  <div>
-    <h2>₹<span id="total">0</span></h2>
-    <p id="msg">Select books</p>
-  </div>
-  <button id="orderBtn" disabled onclick="goToSummary()">Order Now 🚀</button>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+function buyAll() {
+  const all = books.map((_, i) => i);
+  localStorage.setItem("cart", JSON.stringify(all));
+  localStorage.setItem("bundle", "true");
+  window.location.href = "summary.html";
+}
