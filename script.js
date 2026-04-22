@@ -1,5 +1,5 @@
 const books = [
-{ name:"Lilamrit", price:360, weight:4 },
+{ name:"Lilamrit (7 Vol)", price:360, weight:4, special:true, note:"7 vol sealed (except vol 1)" },
 { name:"Hare Krishna Explosion", price:84, weight:0.5 },
 { name:"Navadvipa Mahatmya", price:36, weight:0.3 },
 { name:"Messenger", price:36, weight:0.3 },
@@ -28,44 +28,54 @@ let selected=[];
 const list=document.getElementById("book-list");
 
 books.forEach((b,i)=>{
-  const div=document.createElement("div");
-  div.className="book";
-  div.innerHTML=`<h4>${b.name}</h4><div class="new">₹${b.price}</div>`;
-  div.onclick=()=>toggle(i,div);
-  list.appendChild(div);
+let div=document.createElement("div");
+div.className="book";
+if(b.special) div.classList.add("special");
+
+div.innerHTML=`
+<h4>${b.name}</h4>
+${b.note? `<div class="note">${b.note}</div>`:""}
+<div class="new">₹${b.price}</div>
+`;
+
+div.onclick=()=>toggle(i,div);
+list.appendChild(div);
 });
 
 function toggle(i,el){
-  if(selected.includes(i)){
-    selected=selected.filter(x=>x!==i);
-    el.classList.remove("selected");
-  }else{
-    selected.push(i);
-    el.classList.add("selected");
-  }
-  update();
+if(selected.includes(i)){
+selected=selected.filter(x=>x!==i);
+el.classList.remove("selected");
+}else{
+selected.push(i);
+el.classList.add("selected");
+}
+update();
 }
 
 function update(){
-  let total=0;
-  selected.forEach(i=> total+=books[i].price);
+let total=0;
+selected.forEach(i=> total+=books[i].price);
 
-  document.getElementById("total").innerText=total;
+document.getElementById("total").innerText=total;
 
-  if(total>=200){
-    document.getElementById("orderBtn").disabled=false;
-    document.getElementById("msg").innerText="Continue";
-  }
+if(total<200){
+document.getElementById("msg").innerText="Minimum ₹200 required";
+document.getElementById("orderBtn").disabled=true;
+}else{
+document.getElementById("msg").innerText="Ready to continue";
+document.getElementById("orderBtn").disabled=false;
+}
 }
 
 function buyAll(){
-  selected=books.map((_,i)=>i);
-  localStorage.setItem("bundle","true");
-  localStorage.setItem("cart",JSON.stringify(selected));
-  window.location="details.html";
+selected=books.map((_,i)=>i);
+localStorage.setItem("bundle","true");
+localStorage.setItem("cart",JSON.stringify(selected));
+window.location="details.html";
 }
 
 function goToDetails(){
-  localStorage.setItem("cart",JSON.stringify(selected));
-  window.location="details.html";
+localStorage.setItem("cart",JSON.stringify(selected));
+window.location="details.html";
 }
