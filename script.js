@@ -1,31 +1,29 @@
-
 const books = [
-  { name: "Srila Prabhupada lilamrit (7 Volumes)", actual: 1500, price: 749, special: true },
-  { name: "The Hare Krishna Explosion", actual: 200, price: 50 },
-  { name: "Sri Navadvipa-dhama Mahatmya", actual: 150, price: 39 },
-  { name: "Prabhupada: Messenger of the Supreme Lord", actual: 150, price: 39 },
-  { name: "Teachings of Queen Kunti", actual: 120, price: 31 },
-  { name: "Divine Instructions", actual: 100, price: 25 },
-  { name: "Japa", actual: 150, price: 39 },
-  { name: "Teachings of Lord Caitanya", actual: 100, price: 26 },
-  { name: "The Path of Perfection", actual: 55, price: 15 },
-  { name: "Message of Godhead", actual: 25, price: 8 },
-  { name: "Matchless Gift", actual: 50, price: 14 },
-  { name: "Transcendental Teachings of Prahlada Maharaja", actual: 50, price: 14 },
-  { name: "Modern Times in Vedic Perspective", actual: 50, price: 14 },
-  { name: "Beyond Birth and Death", actual: 30, price: 9 },
-  { name: "Life Comes From Life", actual: 80, price: 20 },
-  { name: "Easy Journey to Other Planets", actual: 50, price: 14 },
-  { name: "Civilization and Transcendence", actual: 50, price: 14 },
-  { name: "The Nectar of Instruction", actual: 50, price: 14 },
-  { name: "The Hare Krishna Challenge", actual: 70, price: 18 },
-  { name: "Raja Vidya: King of Knowledge", actual: 50, price: 14 },
-  { name: "Consciousness: The Missing Link", actual: 50, price: 14 },
-  { name: "The Laws of Nature", actual: 80, price: 20 }
+  { name: "Srila Prabhupada lilamrit (7 Volumes)", actual: 1500, price: 750, special: true },
+  { name: "The Hare Krishna Explosion", actual: 350, price: 105 },
+  { name: "Sri Navadvipa-dhama Mahatmya", actual: 150, price: 45 },
+  { name: "Prabhupada: Messenger of the Supreme Lord", actual: 150, price: 45 },
+  { name: "Teachings of Queen Kunti", actual: 100, price: 30 },
+  { name: "Divine Instructions", actual: 100, price: 30 },
+  { name: "Japa", actual: 150, price: 45 },
+  { name: "Teachings of Lord Caitanya", actual: 100, price: 30 },
+  { name: "The Path of Perfection", actual: 55, price: 17 },
+  { name: "Message of Godhead", actual: 25, price: 10 },
+  { name: "Matchless Gift", actual: 50, price: 15 },
+  { name: "Transcendental Teachings of Prahlada Maharaja", actual: 50, price: 15 },
+  { name: "Modern Times in Vedic Perspective", actual: 50, price: 15 },
+  { name: "Beyond Birth and Death", actual: 30, price: 10 },
+  { name: "Life Comes From Life", actual: 80, price: 24 },
+  { name: "Easy Journey to Other Planets", actual: 50, price: 15 },
+  { name: "Civilization and Transcendence", actual: 50, price: 15 },
+  { name: "The Nectar of Instruction", actual: 50, price: 15 },
+  { name: "The Hare Krishna Challenge", actual: 50, price: 15 },
+  { name: "Raja Vidya: King of Knowledge", actual: 50, price: 15 },
+  { name: "Consciousness: The Missing Link", actual: 50, price: 15 },
+  { name: "The Laws of Nature", actual: 80, price: 24 }
 ];
 
 let selected = [];
-
 const list = document.getElementById("book-list");
 
 books.forEach((b, i) => {
@@ -64,23 +62,4 @@ function update() {
 
   if (total < 200) {
     document.getElementById("msg").innerText =
-      "Minimum ₹200 required to compensate shipping charges";
-    document.getElementById("orderBtn").disabled = true;
-  } else {
-    document.getElementById("msg").innerText = "Ready to order 🚀";
-    document.getElementById("orderBtn").disabled = false;
-  }
-}
-
-function goToSummary() {
-  localStorage.setItem("cart", JSON.stringify(selected));
-  localStorage.removeItem("bundle");
-  window.location.href = "summary.html";
-}
-
-function buyAll() {
-  const all = books.map((_, i) => i);
-  localStorage.setItem("cart", JSON.stringify(all));
-  localStorage.setItem("bundle", "true");
-  window.location.href = "summary.html";
-}
+      "Minimum
