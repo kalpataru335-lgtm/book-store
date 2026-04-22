@@ -18,11 +18,11 @@ body::after {
 }
 
 .title {
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .desc {
-  font-size: 13px;
+  font-size: 14px;
   font-style: italic;
   color: #cbd5f5;
   max-width: 650px;
@@ -51,7 +51,7 @@ body::after {
 
 .buy-text { font-size: 14px; }
 .strike { text-decoration: line-through; opacity: 0.7; }
-.main-price { font-size: 30px; font-weight: bold; }
+.main-price { font-size: 32px; font-weight: bold; }
 .save { color: #fde047; font-weight: bold; }
 .note { font-size: 12px; }
 
@@ -65,17 +65,17 @@ body::after {
   text-decoration: none;
 }
 
-/* MOBILE GRID */
+/* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
   padding: 15px;
 }
 
 .book {
   background: #1e293b;
-  padding: 12px;
+  padding: 14px;
   border-radius: 12px;
   cursor: pointer;
   transition: 0.3s;
@@ -96,18 +96,17 @@ body::after {
 
 .special-tag {
   color: #fde047;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
 }
 
 .old {
   text-decoration: line-through;
   color: #94a3b8;
-  font-size: 12px;
 }
 
 .new {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #22c55e;
 }
@@ -127,7 +126,6 @@ body::after {
 
 .cart h2 {
   margin: 0;
-  font-size: 20px;
 }
 
 #msg {
@@ -136,7 +134,7 @@ body::after {
 }
 
 button {
-  padding: 14px 25px;
+  padding: 16px 30px;
   font-size: 16px;
   border: none;
   border-radius: 10px;
@@ -150,27 +148,25 @@ button:disabled {
   background: gray;
 }
 
-/* SUMMARY PAGE */
-.summary-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-}
+/* 📱 MOBILE */
+@media (max-width: 600px) {
 
-.summary-box {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 20px;
-}
+  .title { font-size: 22px; }
 
-.total-box {
-  margin-top: 15px;
-  font-size: 22px;
-  font-weight: bold;
-}
+  .desc { font-size: 12px; }
 
-.proceed-btn {
-  margin-top: 20px;
-  width: 100%;
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .book h3 {
+    font-size: 13px;
+  }
+
+  .new { font-size: 14px; }
+
+  button {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
 }
