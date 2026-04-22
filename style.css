@@ -80,6 +80,12 @@ font-size:11px;
 color:#fde047;
 }
 
+.old {
+text-decoration:line-through;
+color:#94a3b8;
+font-size:12px;
+}
+
 .new {
 color:#22c55e;
 font-weight:bold;
@@ -93,6 +99,11 @@ background:black;
 display:flex;
 justify-content:space-between;
 padding:10px;
+}
+
+.ship-note {
+font-size:11px;
+color:#94a3b8;
 }
 
 button {
@@ -110,8 +121,4 @@ padding:10px;
 border-radius:8px;
 border:none;
 margin-top:10px;
-}
-
-@media(max-width:600px){
-.title { font-size:20px; }
 }
