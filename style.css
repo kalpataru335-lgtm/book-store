@@ -5,7 +5,6 @@ body {
   color: #f1f5f9;
 }
 
-/* FIX SCROLL */
 body::after {
   content: "";
   display: block;
@@ -17,9 +16,7 @@ body::after {
   text-align: center;
 }
 
-.title {
-  font-size: 32px;
-}
+.title { font-size: 32px; }
 
 .desc {
   font-size: 14px;
@@ -55,6 +52,12 @@ body::after {
 .save { color: #fde047; font-weight: bold; }
 .note { font-size: 12px; }
 
+.ship {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #a7f3d0;
+}
+
 .view-btn {
   display: inline-block;
   margin-top: 10px;
@@ -65,7 +68,6 @@ body::after {
   text-decoration: none;
 }
 
-/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -78,21 +80,13 @@ body::after {
   padding: 14px;
   border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
-  text-align: left;
-}
-
-.book:hover {
-  transform: translateY(-3px);
 }
 
 .book.selected {
   border: 2px solid #22c55e;
 }
 
-.special {
-  border: 2px solid gold;
-}
+.special { border: 2px solid gold; }
 
 .special-tag {
   color: #fde047;
@@ -100,10 +94,7 @@ body::after {
   font-weight: bold;
 }
 
-.old {
-  text-decoration: line-through;
-  color: #94a3b8;
-}
+.old { text-decoration: line-through; color: #94a3b8; }
 
 .new {
   font-size: 18px;
@@ -111,7 +102,6 @@ body::after {
   color: #22c55e;
 }
 
-/* CART */
 .cart {
   position: fixed;
   bottom: 0;
@@ -119,13 +109,7 @@ body::after {
   background: #020617;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 12px 15px;
-  box-sizing: border-box;
-}
-
-.cart h2 {
-  margin: 0;
 }
 
 #msg {
@@ -136,37 +120,18 @@ body::after {
 button {
   padding: 16px 30px;
   font-size: 16px;
-  border: none;
   border-radius: 10px;
   background: #22c55e;
   color: black;
   font-weight: bold;
-  cursor: pointer;
 }
 
-button:disabled {
-  background: gray;
-}
+button:disabled { background: gray; }
 
-/* 📱 MOBILE */
+/* MOBILE */
 @media (max-width: 600px) {
-
   .title { font-size: 22px; }
-
   .desc { font-size: 12px; }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .book h3 {
-    font-size: 13px;
-  }
-
+  .grid { grid-template-columns: repeat(2, 1fr); }
   .new { font-size: 14px; }
-
-  button {
-    padding: 12px 18px;
-    font-size: 14px;
-  }
 }
