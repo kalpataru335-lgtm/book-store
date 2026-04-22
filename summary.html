@@ -24,24 +24,34 @@ const cart=JSON.parse(localStorage.getItem("cart"));
 const bundle=localStorage.getItem("bundle")==="true";
 const ship=parseInt(localStorage.getItem("ship"))||0;
 
-const prices=[360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
+const actual=[1500,350,150,150,100,100,150,100,55,25,50,50,50,30,80,50,50,50,50,50,50,80];
+const price=[360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
 
 let total=0;
+let actualTotal=0;
 let text="";
 
 cart.forEach(i=>{
-total+=prices[i];
-text+=`Item ${i+1} - ₹${prices[i]}\n`;
+total+=price[i];
+actualTotal+=actual[i];
+text+=`Item ${i+1} - ₹${price[i]}\n`;
 });
 
 if(bundle) total-=100;
 
 let final=total+ship;
+let savings=actualTotal-total;
 
 document.getElementById("list").innerText=text;
 
 document.getElementById("total").innerHTML=
-`Books: ₹${total}<br>Shipping: ₹${ship}<br><b>Total: ₹${final}</b>`;
+`
+Total MRP: ₹${actualTotal}<br>
+Your Price: ₹${total}<br>
+Shipping: ₹${ship}<br>
+<b>Final Payable: ₹${final}</b><br>
+<span style="color:#22c55e;">You Save: ₹${savings}</span>
+`;
 
 function go(){
 const url=`https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url
