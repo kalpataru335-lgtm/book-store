@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Summary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="summary-container">
+
+  <h1>🧾 Order Summary</h1>
+
+  <div class="summary-box" id="list"></div>
+
+  <div class="total-box" id="total"></div>
+
+  <button class="proceed-btn" onclick="goToForm()">Proceed 🚀</button>
+
+</div>
+
+<script>
+const selected = JSON.parse(localStorage.getItem("cart"));
+const isBundle = localStorage.getItem("bundle") === "true";
+
+const names = [
+"Srila Prabhupada lilamrit (7 Volumes)",
+"The Hare Krishna Explosion",
+"Sri Navadvipa-dhama Mahatmya",
+"Prabhupada: Messenger of the Supreme Lord",
+"Teachings of Queen Kunti",
+"Divine Instructions",
+"Japa",
+"Teachings of Lord Caitanya",
+"The Path of Perfection",
+"Message of Godhead",
+"Matchless Gift",
+"Transcendental Teachings of Prahlada Maharaja",
+"Modern Times in Vedic Perspective",
+"Beyond Birth and Death",
+"Life Comes From Life",
+"Easy Journey to Other Planets",
+"Civilization and Transcendence",
+"The Nectar of Instruction",
+"The Hare Krishna Challenge",
+"Raja Vidya: King of Knowledge",
+"Consciousness: The Missing Link",
+"The Laws of Nature"
+];
+
+const prices = [749,50,39,39,31,25,39,26,15,8,14,14,14,9,20,14,14,14,18,14,14,20];
+
+let text = "";
+let total = 0;
+
+selected.forEach(i => {
+  text += names[i] + " - ₹" + prices[i] + "<br>";
+  total += prices[i];
+});
+
+if (isBundle) total = 1100;
+
+document.getElementById("list").innerHTML = text;
+
+document.getElementById("total").innerHTML = isBundle
+  ? "<del>₹1200</del> ₹1100 (Save ₹100)"
+  : "Total: ₹" + total;
+
+function goToForm() {
+  const url = `https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url&entry.1134989965=${encodeURIComponent(text)}&entry.2142736590=${total}`;
+  window.location.href = url;
+}
+</script>
+
+</body>
+</html>
