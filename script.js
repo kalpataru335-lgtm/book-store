@@ -1,137 +1,86 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #0f172a;
-  color: #f1f5f9;
+
+const books = [
+  { name: "Srila Prabhupada lilamrit (7 Volumes)", actual: 1500, price: 749, special: true },
+  { name: "The Hare Krishna Explosion", actual: 200, price: 50 },
+  { name: "Sri Navadvipa-dhama Mahatmya", actual: 150, price: 39 },
+  { name: "Prabhupada: Messenger of the Supreme Lord", actual: 150, price: 39 },
+  { name: "Teachings of Queen Kunti", actual: 120, price: 31 },
+  { name: "Divine Instructions", actual: 100, price: 25 },
+  { name: "Japa", actual: 150, price: 39 },
+  { name: "Teachings of Lord Caitanya", actual: 100, price: 26 },
+  { name: "The Path of Perfection", actual: 55, price: 15 },
+  { name: "Message of Godhead", actual: 25, price: 8 },
+  { name: "Matchless Gift", actual: 50, price: 14 },
+  { name: "Transcendental Teachings of Prahlada Maharaja", actual: 50, price: 14 },
+  { name: "Modern Times in Vedic Perspective", actual: 50, price: 14 },
+  { name: "Beyond Birth and Death", actual: 30, price: 9 },
+  { name: "Life Comes From Life", actual: 80, price: 20 },
+  { name: "Easy Journey to Other Planets", actual: 50, price: 14 },
+  { name: "Civilization and Transcendence", actual: 50, price: 14 },
+  { name: "The Nectar of Instruction", actual: 50, price: 14 },
+  { name: "The Hare Krishna Challenge", actual: 70, price: 18 },
+  { name: "Raja Vidya: King of Knowledge", actual: 50, price: 14 },
+  { name: "Consciousness: The Missing Link", actual: 50, price: 14 },
+  { name: "The Laws of Nature", actual: 80, price: 20 }
+];
+
+let selected = [];
+
+const list = document.getElementById("book-list");
+
+books.forEach((b, i) => {
+  const div = document.createElement("div");
+  div.className = "book";
+  if (b.special) div.classList.add("special");
+
+  div.innerHTML = `
+    <h3>${b.name}</h3>
+    ${b.special ? `<div class="special-tag">🔥 50% OFF + 6 volumes sealed out of 7</div>` : ""}
+    <span class="old">₹${b.actual}</span><br>
+    <span class="new">₹${b.price}</span>
+  `;
+
+  div.onclick = () => toggle(i, div);
+  list.appendChild(div);
+});
+
+function toggle(i, el) {
+  const idx = selected.indexOf(i);
+  if (idx > -1) {
+    selected.splice(idx, 1);
+    el.classList.remove("selected");
+  } else {
+    selected.push(i);
+    el.classList.add("selected");
+  }
+  update();
 }
 
-body::after {
-  content: "";
-  display: block;
-  height: 120px;
+function update() {
+  let total = 0;
+  selected.forEach(i => total += books[i].price);
+
+  document.getElementById("total").innerText = total;
+
+  if (total < 200) {
+    document.getElementById("msg").innerText =
+      "Minimum ₹200 required to compensate shipping charges";
+    document.getElementById("orderBtn").disabled = true;
+  } else {
+    document.getElementById("msg").innerText = "Ready to order 🚀";
+    document.getElementById("orderBtn").disabled = false;
+  }
 }
 
-.container {
-  padding: 15px;
-  text-align: center;
+function goToSummary() {
+  localStorage.setItem("cart", JSON.stringify(selected));
+  localStorage.removeItem("bundle");
+  window.location.href = "summary.html";
 }
 
-.title { font-size: 32px; }
-
-.desc {
-  font-size: 14px;
-  font-style: italic;
-  color: #cbd5f5;
-  max-width: 650px;
-  margin: auto;
-}
-
-.contact {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 12px;
-  background: #22c55e;
-  color: black;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.highlight {
-  cursor: pointer;
-  margin: 20px auto;
-  padding: 18px;
-  border-radius: 16px;
-  width: 95%;
-  max-width: 800px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-}
-
-.buy-text { font-size: 14px; }
-.strike { text-decoration: line-through; opacity: 0.7; }
-.main-price { font-size: 32px; font-weight: bold; }
-.save { color: #fde047; font-weight: bold; }
-.note { font-size: 12px; }
-
-.ship {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #a7f3d0;
-}
-
-.view-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 16px;
-  background: #0ea5e9;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
-  padding: 15px;
-}
-
-.book {
-  background: #1e293b;
-  padding: 14px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.book.selected {
-  border: 2px solid #22c55e;
-}
-
-.special { border: 2px solid gold; }
-
-.special-tag {
-  color: #fde047;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.old { text-decoration: line-through; color: #94a3b8; }
-
-.new {
-  font-size: 18px;
-  font-weight: bold;
-  color: #22c55e;
-}
-
-.cart {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #020617;
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 15px;
-}
-
-#msg {
-  font-size: 12px;
-  color: #facc15;
-}
-
-button {
-  padding: 16px 30px;
-  font-size: 16px;
-  border-radius: 10px;
-  background: #22c55e;
-  color: black;
-  font-weight: bold;
-}
-
-button:disabled { background: gray; }
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .title { font-size: 22px; }
-  .desc { font-size: 12px; }
-  .grid { grid-template-columns: repeat(2, 1fr); }
-  .new { font-size: 14px; }
+function buyAll() {
+  const all = books.map((_, i) => i);
+  localStorage.setItem("cart", JSON.stringify(all));
+  localStorage.setItem("bundle", "true");
+  window.location.href = "summary.html";
 }
