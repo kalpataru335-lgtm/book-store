@@ -1,75 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Order Summary</title>
-  <link rel="stylesheet" href="style.css">
+<title>Summary</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="summary-container">
+<div class="container">
 
-  <h1>🧾 Order Summary</h1>
+<h2>Order Summary</h2>
 
-  <div class="summary-box" id="list"></div>
+<div id="list"></div>
 
-  <div class="total-box" id="total"></div>
+<h3 id="total"></h3>
 
-  <button class="proceed-btn" onclick="goToForm()">Proceed 🚀</button>
+<button onclick="go()">Proceed</button>
 
 </div>
 
 <script>
-const selected = JSON.parse(localStorage.getItem("cart"));
-const isBundle = localStorage.getItem("bundle") === "true";
+const cart=JSON.parse(localStorage.getItem("cart"));
+const bundle=localStorage.getItem("bundle")==="true";
+const ship=parseInt(localStorage.getItem("ship"))||0;
 
-const names = [
-"Srila Prabhupada lilamrit (7 Volumes)",
-"The Hare Krishna Explosion",
-"Sri Navadvipa-dhama Mahatmya",
-"Prabhupada: Messenger of the Supreme Lord",
-"Teachings of Queen Kunti",
-"Divine Instructions",
-"Japa",
-"Teachings of Lord Caitanya",
-"The Path of Perfection",
-"Message of Godhead",
-"Matchless Gift",
-"Transcendental Teachings of Prahlada Maharaja",
-"Modern Times in Vedic Perspective",
-"Beyond Birth and Death",
-"Life Comes From Life",
-"Easy Journey to Other Planets",
-"Civilization and Transcendence",
-"The Nectar of Instruction",
-"The Hare Krishna Challenge",
-"Raja Vidya: King of Knowledge",
-"Consciousness: The Missing Link",
-"The Laws of Nature"
-];
+const prices=[360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
 
-const prices = [
-750,105,45,45,30,30,45,30,17,10,15,15,15,10,24,15,15,15,15,15,15,24
-];
+let total=0;
+let text="";
 
-let text = "";
-let total = 0;
-
-selected.forEach(i => {
-  text += names[i] + " - ₹" + prices[i] + "\n";
-  total += prices[i];
+cart.forEach(i=>{
+  total+=prices[i];
+  text+=`Item ${i+1} - ₹${prices[i]}\n`;
 });
 
-if (isBundle) total = 1200;
+if(bundle) total-=100;
 
-document.getElementById("list").innerText = text;
+let final=total+ship;
 
-document.getElementById("total").innerHTML = isBundle
-  ? "<del>₹1300</del> ₹1200 (Save ₹100)"
-  : "Total: ₹" + total;
+list.innerText=text;
 
-function goToForm() {
-  const url = `https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url&entry.1134989965=${encodeURIComponent(text)}&entry.2142736590=${total}`;
-  window.location.href = url;
+totalEl=document.getElementById("total");
+totalEl.innerHTML=
+`Books: ₹${total}<br>Shipping: ₹${ship}<br><b>Total: ₹${final}</b>`;
+
+function go(){
+  const url=`YOUR_FORM_LINK&entry.books=${encodeURIComponent(text)}&entry.total=${final}`;
+  window.location=url;
 }
 </script>
 
