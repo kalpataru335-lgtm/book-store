@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Details</title>
+<title>Delivery Details</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -9,44 +9,59 @@
 
 <div class="container">
 
-<h2>Enter Delivery Details</h2>
+<h2>📦 Enter Delivery Details</h2>
 
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Phone">
-<input id="address" placeholder="Address">
-<input id="pin" placeholder="PIN">
+<input id="name" placeholder="Full Name">
+<input id="phone" placeholder="Phone Number">
+<input id="address" placeholder="Full Address">
+<input id="pin" placeholder="PIN Code">
 
 <button onclick="calc()">Calculate Shipping</button>
 
 <h3 id="ship"></h3>
 
-<button onclick="next()">Continue</button>
+<button onclick="next()">Continue →</button>
 
 </div>
 
 <script>
-const cart=JSON.parse(localStorage.getItem("cart"));
-const weights=[4,0.5,0.3,0.3,0.25,0.15,0.3,0.25,0.2,0.2,0.2,0.2,0.2,0.2,0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.3];
+const cart = JSON.parse(localStorage.getItem("cart"));
 
+const weights = [
+4,0.5,0.3,0.3,0.25,0.15,0.3,0.25,0.2,0.2,0.2,0.2,0.2,0.2,0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.3
+];
+
+// SHIPPING CALCULATION
 function calc(){
-let w=0;
-cart.forEach(i=> w+=weights[i]);
+let w = 0;
+cart.forEach(i => w += weights[i]);
 
-let ship=0;
-if(w<=2) ship=120;
-else if(w<=5) ship=200;
-else ship=700;
+let ship = 0;
 
-document.getElementById("ship").innerText="Shipping ₹"+ship;
-localStorage.setItem("ship",ship);
+if(w <= 2) ship = 100;
+else if(w <= 5) ship = 180;
+else ship = 400;
+
+document.getElementById("ship").innerHTML =
+`📦 Total Weight: ${w.toFixed(2)} kg <br> 🚚 Shipping: ₹${ship}`;
+
+localStorage.setItem("ship", ship);
 }
 
+// SAVE DETAILS
 function next(){
-localStorage.setItem("name",name.value);
-localStorage.setItem("phone",phone.value);
-localStorage.setItem("address",address.value);
-localStorage.setItem("pin",pin.value);
-window.location="summary.html";
+
+if(!name.value || !phone.value || !address.value || !pin.value){
+alert("Please fill all details");
+return;
+}
+
+localStorage.setItem("name", name.value);
+localStorage.setItem("phone", phone.value);
+localStorage.setItem("address", address.value);
+localStorage.setItem("pin", pin.value);
+
+window.location = "summary.html";
 }
 </script>
 
