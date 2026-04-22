@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Summary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,23 +30,29 @@ let total=0;
 let text="";
 
 cart.forEach(i=>{
-  total+=prices[i];
-  text+=`Item ${i+1} - ₹${prices[i]}\n`;
+total+=prices[i];
+text+=`Item ${i+1} - ₹${prices[i]}\n`;
 });
 
 if(bundle) total-=100;
 
 let final=total+ship;
 
-list.innerText=text;
+document.getElementById("list").innerText=text;
 
-totalEl=document.getElementById("total");
-totalEl.innerHTML=
+document.getElementById("total").innerHTML=
 `Books: ₹${total}<br>Shipping: ₹${ship}<br><b>Total: ₹${final}</b>`;
 
 function go(){
-  const url=`YOUR_FORM_LINK&entry.books=${encodeURIComponent(text)}&entry.total=${final}`;
-  window.location=url;
+const url=`https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url
+&entry.814413456=${encodeURIComponent(localStorage.getItem("name"))}
+&entry.1136665539=${localStorage.getItem("phone")}
+&entry.444383641=${encodeURIComponent(localStorage.getItem("address"))}
+&entry.63875660=${localStorage.getItem("pin")}
+&entry.1134989965=${encodeURIComponent(text)}
+&entry.2142736590=${final}`;
+
+window.location=url;
 }
 </script>
 
