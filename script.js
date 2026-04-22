@@ -10,41 +10,41 @@ const books = [
 { name:"Path of Perfection", actual:55, price:14, weight:0.2 },
 { name:"Message of Godhead", actual:25, price:6, weight:0.2 },
 { name:"Matchless Gift", actual:50, price:12, weight:0.2 },
-{ name:"Prahlada", actual:50, price:12, weight:0.2 },
+{ name:"Prahlada Maharaja", actual:50, price:12, weight:0.2 },
 { name:"Modern Times", actual:50, price:12, weight:0.2 },
 { name:"Beyond Birth", actual:30, price:8, weight:0.2 },
-{ name:"Life Comes", actual:80, price:20, weight:0.3 },
+{ name:"Life Comes From Life", actual:80, price:20, weight:0.3 },
 { name:"Easy Journey", actual:50, price:12, weight:0.2 },
 { name:"Civilization", actual:50, price:12, weight:0.2 },
-{ name:"Nectar", actual:50, price:12, weight:0.2 },
+{ name:"Nectar of Instruction", actual:50, price:12, weight:0.2 },
 { name:"HK Challenge", actual:50, price:12, weight:0.2 },
 { name:"Raja Vidya", actual:50, price:12, weight:0.2 },
 { name:"Consciousness", actual:50, price:12, weight:0.2 },
 { name:"Laws of Nature", actual:80, price:20, weight:0.3 }
 ];
 
-let selected=[];
-const list=document.getElementById("book-list");
+let selected = [];
+const list = document.getElementById("book-list");
 
 books.forEach((b,i)=>{
-let div=document.createElement("div");
-div.className="book";
+let div = document.createElement("div");
+div.className = "book";
 if(b.special) div.classList.add("special");
 
-div.innerHTML=`
+div.innerHTML = `
 <h4>${b.name}</h4>
-${b.note? `<div class="note">${b.note}</div>`:""}
+${b.note ? `<div class="note">${b.note}</div>` : ""}
 <span class="old">₹${b.actual}</span><br>
 <span class="new">₹${b.price}</span>
 `;
 
-div.onclick=()=>toggle(i,div);
+div.onclick = ()=>toggle(i,div);
 list.appendChild(div);
 });
 
 function toggle(i,el){
 if(selected.includes(i)){
-selected=selected.filter(x=>x!==i);
+selected = selected.filter(x=>x!==i);
 el.classList.remove("selected");
 }else{
 selected.push(i);
@@ -54,28 +54,30 @@ update();
 }
 
 function update(){
-let total=0;
-selected.forEach(i=> total+=books[i].price);
+let total = 0;
+selected.forEach(i=> total += books[i].price);
 
-document.getElementById("total").innerText=total;
+document.getElementById("total").innerText = total;
 
-if(total<200){
-document.getElementById("msg").innerText="Minimum ₹200 required";
-document.getElementById("orderBtn").disabled=true;
+// 🔥 ₹160 MINIMUM + SMART MESSAGE
+if(total < 160){
+let remaining = 160 - total;
+document.getElementById("msg").innerText = `Add ₹${remaining} more to order`;
+document.getElementById("orderBtn").disabled = true;
 }else{
-document.getElementById("msg").innerText="Ready to continue";
-document.getElementById("orderBtn").disabled=false;
+document.getElementById("msg").innerText = "Ready to continue";
+document.getElementById("orderBtn").disabled = false;
 }
 }
 
 function buyAll(){
-selected=books.map((_,i)=>i);
+selected = books.map((_,i)=>i);
 localStorage.setItem("bundle","true");
 localStorage.setItem("cart",JSON.stringify(selected));
-window.location="details.html";
+window.location = "details.html";
 }
 
 function goToDetails(){
 localStorage.setItem("cart",JSON.stringify(selected));
-window.location="details.html";
+window.location = "details.html";
 }
