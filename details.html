@@ -25,7 +25,7 @@
 </div>
 
 <script>
-const cart = JSON.parse(localStorage.getItem("cart"));
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const weights = [
 4,0.5,0.3,0.3,0.25,0.15,0.3,0.25,0.2,0.2,0.2,0.2,0.2,0.2,0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.3
@@ -38,29 +38,44 @@ cart.forEach(i => w += weights[i]);
 
 let ship = 0;
 
+// simple & fair pricing
 if(w <= 2) ship = 100;
 else if(w <= 5) ship = 180;
 else ship = 400;
 
+// show result
 document.getElementById("ship").innerHTML =
 `📦 Total Weight: ${w.toFixed(2)} kg <br> 🚚 Shipping: ₹${ship}`;
 
 localStorage.setItem("ship", ship);
 }
 
-// SAVE DETAILS
+// SAVE DETAILS & VALIDATE
 function next(){
 
-if(!name.value || !phone.value || !address.value || !pin.value){
+const nameVal = document.getElementById("name").value.trim();
+const phoneVal = document.getElementById("phone").value.trim();
+const addressVal = document.getElementById("address").value.trim();
+const pinVal = document.getElementById("pin").value.trim();
+
+// validation
+if(!nameVal || !phoneVal || !addressVal || !pinVal){
 alert("Please fill all details");
 return;
 }
 
-localStorage.setItem("name", name.value);
-localStorage.setItem("phone", phone.value);
-localStorage.setItem("address", address.value);
-localStorage.setItem("pin", pin.value);
+if(pinVal.length !== 6){
+alert("Enter valid 6 digit PIN");
+return;
+}
 
+// save
+localStorage.setItem("name", nameVal);
+localStorage.setItem("phone", phoneVal);
+localStorage.setItem("address", addressVal);
+localStorage.setItem("pin", pinVal);
+
+// go next
 window.location = "summary.html";
 }
 </script>
