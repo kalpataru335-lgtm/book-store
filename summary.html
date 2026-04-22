@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Summary</title>
+<title>Order Summary</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -9,52 +9,60 @@
 
 <div class="container">
 
-<h2>Order Summary</h2>
+<h2>🧾 Order Summary</h2>
 
 <div id="list"></div>
 
 <h3 id="total"></h3>
 
-<button onclick="go()">Proceed</button>
+<button onclick="go()">Proceed to Payment</button>
 
 </div>
 
 <script>
-const cart=JSON.parse(localStorage.getItem("cart"));
-const bundle=localStorage.getItem("bundle")==="true";
-const ship=parseInt(localStorage.getItem("ship"))||0;
+const cart = JSON.parse(localStorage.getItem("cart"));
+const bundle = localStorage.getItem("bundle") === "true";
+const ship = parseInt(localStorage.getItem("ship")) || 0;
 
-const actual=[1500,350,150,150,100,100,150,100,55,25,50,50,50,30,80,50,50,50,50,50,50,80];
-const price=[360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
+// DATA
+const actual = [1500,350,150,150,100,100,150,100,55,25,50,50,50,30,80,50,50,50,50,50,50,80];
+const price  = [360,84,36,36,24,24,36,24,14,6,12,12,12,8,20,12,12,12,12,12,12,20];
 
-let total=0;
-let actualTotal=0;
-let text="";
+let total = 0;
+let actualTotal = 0;
+let text = "";
 
+// CALCULATE
 cart.forEach(i=>{
-total+=price[i];
-actualTotal+=actual[i];
-text+=`Item ${i+1} - ₹${price[i]}\n`;
+  total += price[i];
+  actualTotal += actual[i];
+  text += `Item ${i+1} - ₹${price[i]}\n`;
 });
 
-if(bundle) total-=100;
+// APPLY BUNDLE
+let discount = bundle ? 100 : 0;
+let finalBookPrice = total - discount;
 
-let final=total+ship;
-let savings=actualTotal-total;
+// FINAL
+let final = finalBookPrice + ship;
+let savings = actualTotal - finalBookPrice;
 
-document.getElementById("list").innerText=text;
+// DISPLAY
+document.getElementById("list").innerText = text;
 
-document.getElementById("total").innerHTML=
-`
+document.getElementById("total").innerHTML = `
 Total MRP: ₹${actualTotal}<br>
 Your Price: ₹${total}<br>
+Bundle Discount: -₹${discount}<br>
+Final Book Price: ₹${finalBookPrice}<br>
 Shipping: ₹${ship}<br>
 <b>Final Payable: ₹${final}</b><br>
 <span style="color:#22c55e;">You Save: ₹${savings}</span>
 `;
 
+// GOOGLE FORM REDIRECT
 function go(){
-const url=`https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url
+const url = `https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxldSFXS3rPqY_tv5AWuOW-rA/viewform?usp=pp_url
 &entry.814413456=${encodeURIComponent(localStorage.getItem("name"))}
 &entry.1136665539=${localStorage.getItem("phone")}
 &entry.444383641=${encodeURIComponent(localStorage.getItem("address"))}
@@ -62,7 +70,7 @@ const url=`https://docs.google.com/forms/d/e/1FAIpQLSffKb15QMqsplCSBqaP5mwkssxld
 &entry.1134989965=${encodeURIComponent(text)}
 &entry.2142736590=${final}`;
 
-window.location=url;
+window.location = url;
 }
 </script>
 
