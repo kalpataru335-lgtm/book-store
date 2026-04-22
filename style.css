@@ -1,61 +1,117 @@
-body { margin:0; font-family:Poppins; background:#0f172a; color:white; }
-body::after { content:""; display:block; height:120px; }
+body {
+margin:0;
+font-family:Poppins;
+background:#0f172a;
+color:white;
+}
 
-.container { padding:15px; text-align:center; }
-.title { font-size:26px; }
+body::after {
+content:"";
+display:block;
+height:120px;
+}
 
-.desc { font-size:13px; font-style:italic; color:#cbd5f5; }
+.container {
+padding:15px;
+text-align:center;
+}
+
+.title { font-size:24px; }
+
+.desc {
+font-size:13px;
+font-style:italic;
+color:#cbd5f5;
+}
 
 .contact {
-  display:inline-block;
-  background:#22c55e;
-  color:black;
-  padding:6px 12px;
-  border-radius:8px;
-  margin-top:10px;
+display:inline-block;
+background:#22c55e;
+color:black;
+padding:6px 12px;
+border-radius:8px;
+margin-top:10px;
 }
 
 .highlight {
-  margin:20px auto;
-  padding:15px;
-  border-radius:14px;
-  background:#6366f1;
-  cursor:pointer;
+margin:20px auto;
+padding:14px;
+border-radius:12px;
+background:#6366f1;
+font-weight:bold;
+cursor:pointer;
+}
+
+.view-btn {
+display:block;
+margin:15px auto;
+padding:12px;
+background:#f97316;
+color:white;
+border-radius:10px;
+font-weight:bold;
+text-decoration:none;
 }
 
 .grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  padding:10px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:10px;
 }
 
 .book {
-  background:#1e293b;
-  padding:10px;
-  border-radius:10px;
+background:#1e293b;
+padding:10px;
+border-radius:10px;
+text-align:left;
 }
 
-.book.selected { border:2px solid #22c55e; }
+.book.selected {
+border:2px solid #22c55e;
+}
 
-.old { text-decoration:line-through; color:#94a3b8; }
-.new { color:#22c55e; font-weight:bold; }
+.special {
+border:2px solid gold;
+}
+
+.note {
+font-size:11px;
+color:#fde047;
+}
+
+.new {
+color:#22c55e;
+font-weight:bold;
+}
 
 .cart {
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:black;
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
+position:fixed;
+bottom:0;
+width:100%;
+background:black;
+display:flex;
+justify-content:space-between;
+padding:10px;
 }
 
 button {
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#22c55e;
 }
 
 button:disabled { background:gray; }
+
+input {
+width:90%;
+padding:10px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+@media(max-width:600px){
+.title { font-size:20px; }
+}
