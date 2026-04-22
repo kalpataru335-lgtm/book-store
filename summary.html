@@ -53,13 +53,13 @@ let text = "";
 let total = 0;
 
 selected.forEach(i => {
-  text += names[i] + " - ₹" + prices[i] + "<br>";
+  text += names[i] + " - ₹" + prices[i] + "\n";
   total += prices[i];
 });
 
 if (isBundle) total = 1100;
 
-document.getElementById("list").innerHTML = text;
+document.getElementById("list").innerText = text;
 
 document.getElementById("total").innerHTML = isBundle
   ? "<del>₹1200</del> ₹1100 (Save ₹100)"
