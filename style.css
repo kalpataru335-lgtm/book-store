@@ -5,7 +5,6 @@ body {
   color: #f1f5f9;
 }
 
-/* prevent bottom bar overlap */
 body::after {
   content: "";
   display: block;
@@ -17,9 +16,7 @@ body::after {
   text-align: center;
 }
 
-.title {
-  font-size: 28px;
-}
+.title { font-size: 28px; }
 
 .desc {
   font-size: 13px;
@@ -39,7 +36,6 @@ body::after {
   font-weight: bold;
 }
 
-/* bundle box */
 .highlight {
   cursor: pointer;
   margin: 20px auto;
@@ -62,7 +58,6 @@ body::after {
   color: #a7f3d0;
 }
 
-/* view button */
 .view-btn {
   display: inline-block;
   margin-top: 10px;
@@ -73,15 +68,13 @@ body::after {
   text-decoration: none;
 }
 
-/* 🔥 FIXED GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* always 2 columns */
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 15px;
 }
 
-/* cards */
 .book {
   background: #1e293b;
   padding: 12px;
@@ -90,13 +83,8 @@ body::after {
   text-align: left;
 }
 
-.book.selected {
-  border: 2px solid #22c55e;
-}
-
-.special {
-  border: 2px solid gold;
-}
+.book.selected { border: 2px solid #22c55e; }
+.special { border: 2px solid gold; }
 
 .special-tag {
   color: #fde047;
@@ -116,7 +104,6 @@ body::after {
   color: #22c55e;
 }
 
-/* cart */
 .cart {
   position: fixed;
   bottom: 0;
@@ -128,10 +115,7 @@ body::after {
   padding: 12px;
 }
 
-.cart h2 {
-  margin: 0;
-  font-size: 18px;
-}
+.cart h2 { margin: 0; font-size: 18px; }
 
 #msg {
   font-size: 11px;
@@ -147,6 +131,4 @@ button {
   font-weight: bold;
 }
 
-button:disabled {
-  background: gray;
-}
+button:disabled { background: gray; }
